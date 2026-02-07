@@ -10,7 +10,8 @@ import { addToCart } from '@/app/actions/cart';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store/cart-store';
 import { toast } from 'sonner';
-import { ShoppingCart, Sparkles } from 'lucide-react';
+import { ShoppingCart, Sparkles, Calendar, Tag } from 'lucide-react';
+import { FadeIn } from '@/components/ui/motion';
 
 interface ProductDetailProps {
   product: {
@@ -48,22 +49,19 @@ export function ProductDetail({ product }: ProductDetailProps) {
       const result = await addToCart(product.id, dates);
 
       if (result.success) {
-        // Show success toast with cute animation
         toast.success('Added to cart!', {
           description: `${product.name} is ready for checkout`,
           icon: <Sparkles className="h-4 w-4" />,
           duration: 3000,
         });
 
-        // Open cart after a short delay
         setTimeout(() => {
           openCart();
         }, 500);
 
         router.refresh();
       } else {
-        // Check if user needs to sign in
-        if ((result as any).needsAuth) {
+        if ((result as { needsAuth?: boolean }).needsAuth) {
           toast.error('Sign in required', {
             description: result.error,
             action: {
@@ -101,118 +99,136 @@ export function ProductDetail({ product }: ProductDetailProps) {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
       {/* Image Section */}
-      <div className="relative aspect-square rounded-lg overflow-hidden">
+      <FadeIn className="relative aspect-[4/3] md:aspect-square rounded-3xl overflow-hidden shadow-2xl bg-muted border border-border/50">
         <Image
           src={product.image_url}
           alt={product.name}
           fill
-          className="object-cover"
+          className="object-cover transition-transform duration-700 hover:scale-105"
           priority
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
-      </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+      </FadeIn>
 
       {/* Details Section */}
-      <div className="space-y-6">
+      <FadeIn delay={0.2} className="space-y-8">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <Badge>{product.category}</Badge>
-            <Badge variant={product.available ? 'default' : 'secondary'}>
+          <div className="flex items-center gap-2 mb-4">
+            <Badge variant="outline" className="px-3 py-1 text-sm bg-background/50 backdrop-blur border-primary/20">
+              {product.category}
+            </Badge>
+            <Badge 
+              variant={product.available ? 'default' : 'secondary'}
+              className="px-3 py-1 text-sm"
+            >
               {product.available ? 'Available' : 'Unavailable'}
             </Badge>
           </div>
-          <h1 className="text-4xl font-bold">{product.name}</h1>
-        </div>
-
-        <div>
-          <p className="text-lg text-muted-foreground">{product.description}</p>
+          
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 font-heading text-foreground">
+            {product.name}
+          </h1>
+          
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            {product.description}
+          </p>
         </div>
 
         {/* Tags */}
         {product.tags && product.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {product.tags.map((tag) => (
-              <Badge key={tag} variant="outline">
+              <Badge key={tag} variant="secondary" className="px-3 py-1 gap-1 text-muted-foreground bg-secondary/50">
+                <Tag className="w-3 h-3" />
                 {tag}
               </Badge>
             ))}
           </div>
         )}
 
-        {/* Pricing */}
-        <div className="border-y py-4">
-          <div className="flex justify-between items-center">
+        {/* Pricing Card */}
+        <div className="glass-card rounded-2xl p-6 space-y-6">
+          <div className="flex justify-between items-baseline pb-4 border-b border-white/10">
             <div>
-              <p className="text-3xl font-bold">
-                ${product.rental_price_per_day}
-              </p>
-              <p className="text-sm text-muted-foreground">per day</p>
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-bold tracking-tight">${product.rental_price_per_day}</span>
+                <span className="text-muted-foreground">/ day</span>
+              </div>
             </div>
             {product.purchase_price && (
               <div className="text-right">
-                <p className="text-xl font-semibold">
-                  ${product.purchase_price}
-                </p>
-                <p className="text-sm text-muted-foreground">to purchase</p>
+                <span className="text-lg font-semibold block">${product.purchase_price}</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Buy Price</span>
               </div>
             )}
           </div>
-        </div>
 
-        {/* Rental Dates */}
-        {product.available && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="start-date">Start Date</Label>
-                <Input
-                  id="start-date"
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  min={new Date().toISOString().split('T')[0]}
-                />
+          {/* Rental Dates */}
+          {product.available && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="start-date" className="text-xs uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-2">
+                    <Calendar className="w-3 h-3" /> Start Date
+                  </Label>
+                  <Input
+                    id="start-date"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    min={new Date().toISOString().split('T')[0]}
+                    className="bg-background/50 border-white/10 h-10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="end-date" className="text-xs uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-2">
+                    <Calendar className="w-3 h-3" /> End Date
+                  </Label>
+                  <Input
+                    id="end-date"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    min={startDate || new Date().toISOString().split('T')[0]}
+                    className="bg-background/50 border-white/10 h-10"
+                  />
+                </div>
               </div>
-              <div>
-                <Label htmlFor="end-date">End Date</Label>
-                <Input
-                  id="end-date"
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  min={startDate || new Date().toISOString().split('T')[0]}
-                />
-              </div>
+
+              {startDate && endDate && (
+                <div className="flex justify-between items-center p-4 bg-primary/10 rounded-xl border border-primary/20">
+                  <span className="font-medium">Total Cost</span>
+                  <span className="text-2xl font-bold text-primary">${calculateTotal()}</span>
+                </div>
+              )}
+
+              <Button
+                onClick={handleAddToCart}
+                disabled={isLoading || !product.available}
+                className="w-full h-12 text-base font-semibold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                size="lg"
+              >
+                <ShoppingCart className="mr-2 h-5 w-5" />
+                {isLoading ? 'Adding to Cart...' : 'Add to Cart'}
+              </Button>
             </div>
-
-            {startDate && endDate && (
-              <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">Total Cost</p>
-                <p className="text-2xl font-bold">${calculateTotal()}</p>
-              </div>
-            )}
-
-            <Button
-              onClick={handleAddToCart}
-              disabled={isLoading || !product.available}
-              className="w-full transition-all hover:scale-105 active:scale-95"
-              size="lg"
-            >
-              <ShoppingCart className="mr-2 h-5 w-5" />
-              {isLoading ? 'Adding...' : 'Add to Cart'}
-            </Button>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Owner Info */}
         {product.profiles?.full_name && (
-          <div className="border-t pt-4">
-            <p className="text-sm text-muted-foreground">Listed by</p>
-            <p className="font-medium">{product.profiles.full_name}</p>
+          <div className="flex items-center gap-3 pt-4 opacity-70">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-200 to-gray-400" />
+            <div className="text-sm">
+              <span className="text-muted-foreground">Listed by </span>
+              <span className="font-medium text-foreground">{product.profiles.full_name}</span>
+            </div>
           </div>
         )}
-      </div>
+      </FadeIn>
     </div>
   );
 }

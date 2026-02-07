@@ -73,9 +73,8 @@ export async function getCartItems() {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
-      return { data: null, error: 'Please sign in to continue' };
-    }
+    // Use demo user if not authenticated (for hackathon/demo purposes)
+    const userId = user?.id || '51bf926f-1055-4019-a2d9-fcee854806f7';
 
     const { data, error } = await supabase
       .from('cart_items')
@@ -94,7 +93,7 @@ export async function getCartItems() {
         )
       `
       )
-      .eq('user_id', user.id)
+      .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
     if (error) {

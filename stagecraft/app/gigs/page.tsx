@@ -3,6 +3,7 @@ import { GigCard } from '@/components/gig/gig-card';
 import { PostGigForm } from '@/components/gig/post-gig-form';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
+import { StaggerContainer, StaggerItem } from '@/components/ui/motion';
 
 export default async function GigsPage() {
   const { data: gigs, error } = await getGigs();
@@ -33,11 +34,13 @@ export default async function GigsPage() {
           <PostGigForm />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {gigs.map((gig) => (
-            <GigCard key={gig.id} gig={gig} />
+            <StaggerItem key={gig.id} className="h-full">
+              <GigCard gig={gig} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       )}
     </div>
   );

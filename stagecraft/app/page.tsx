@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { FadeIn, StaggerContainer, StaggerItem, HoverCard } from "@/components/ui/motion";
 import { ArrowRight, Search, Sparkles, Globe } from "lucide-react";
 
@@ -58,8 +57,8 @@ export default function Home() {
                     </div>
                     <h3 className="text-3xl font-bold mb-4 tracking-tight">Semantic Search</h3>
                     <p className="text-muted-foreground text-lg max-w-md">
-                      Don't just keyword search. Describe your character, the era, and the mood. 
-                      Our AI understands "1920s gloomy Hamlet" and builds the perfect bundle.
+                      Don&apos;t just keyword search. Describe your character, the era, and the mood. 
+                      Our AI understands &quot;1920s gloomy Hamlet&quot; and builds the perfect bundle.
                     </p>
                   </div>
                   <div className="mt-8 rounded-xl bg-black/40 border border-white/10 p-4 backdrop-blur-md translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -69,7 +68,7 @@ export default function Home() {
                       <div className="w-2 h-2 rounded-full bg-green-500" />
                     </div>
                     <p className="font-mono text-sm text-purple-300">
-                      &gt; "I need a costume for a cyberpunk mercenary"
+                      &gt; &quot;I need a costume for a cyberpunk mercenary&quot;
                     </p>
                     <p className="font-mono text-sm text-muted-foreground mt-2">
                       Searching inventory... found 12 matches.

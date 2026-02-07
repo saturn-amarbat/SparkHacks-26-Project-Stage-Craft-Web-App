@@ -1,4 +1,5 @@
 import { ProductCard } from './product-card';
+import { StaggerContainer, StaggerItem } from '@/components/ui/motion';
 
 interface Product {
   id: string;
@@ -28,10 +29,12 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <StaggerItem key={product.id} className="h-full">
+          <ProductCard product={product} />
+        </StaggerItem>
       ))}
-    </div>
+    </StaggerContainer>
   );
 }

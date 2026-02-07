@@ -174,7 +174,7 @@ async function seedGigs() {
         console.log(`Processing: ${gig.title}...`);
 
         // Insert gig into database
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('gig_listings')
           .insert({
             ...gig,

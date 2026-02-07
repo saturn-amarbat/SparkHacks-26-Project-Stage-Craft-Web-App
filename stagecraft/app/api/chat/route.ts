@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
+import OpenAI from "openai";
 import {
   inventorySemanticSearch,
   checkProductAvailability,
@@ -6,85 +6,95 @@ import {
 } from "@/lib/ai/tools";
 import { createClient } from "@/lib/supabase/server";
 
-const googleApiKey = process.env.GOOGLE_API_KEY;
-const genAI = googleApiKey ? new GoogleGenerativeAI(googleApiKey) : null;
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-const tools = [
+const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   {
-    name: "inventory_semantic_search",
-    description:
-      "Search for theatrical costumes, props, and equipment using semantic understanding. Use this when the user describes what they need for a role, character, production, or theatrical context. This tool understands context like historical periods (1920s, Victorian), character names (Hamlet, Ophelia), production styles (modern-dress, period-accurate), and theatrical requirements.",
-    parameters: {
-      type: SchemaType.OBJECT,
-      properties: {
-        query: {
-          type: SchemaType.STRING,
-          description:
-            "Search query describing the item needed. Can include character names, periods, styles, or theatrical contexts.",
-        },
-        category: {
-          type: SchemaType.STRING,
-          description: "Filter by category (optional)",
-        },
-        limit: {
-          type: SchemaType.NUMBER,
-          description: "Maximum number of results to return",
-        },
-      },
-      required: ["query"],
-    },
-  },
-  {
-    name: "check_availability",
-    description:
-      "Check if a specific product is available for rental during given dates. Returns availability status and any conflicts.",
-    parameters: {
-      type: SchemaType.OBJECT,
-      properties: {
-        product_id: {
-          type: SchemaType.STRING,
-          description: "UUID of the product to check",
-        },
-        start_date: {
-          type: SchemaType.STRING,
-          description: "Rental start date in YYYY-MM-DD format",
-        },
-        end_date: {
-          type: SchemaType.STRING,
-          description: "Rental end date in YYYY-MM-DD format",
-        },
-      },
-      required: ["product_id", "start_date", "end_date"],
-    },
-  },
-  {
-    name: "create_cart_bundle",
-    description:
-      "Add multiple items to the user's shopping cart at once. Use this after finding suitable products to pre-fill their cart. This is the key action that demonstrates anticipating customer needs.",
-    parameters: {
-      type: SchemaType.OBJECT,
-      properties: {
-        product_ids: {
-          type: SchemaType.ARRAY,
-          items: { type: SchemaType.STRING },
-          description: "Array of product UUIDs to add to cart",
-        },
-        rental_dates: {
-          type: SchemaType.OBJECT,
-          properties: {
-            start: {
-              type: SchemaType.STRING,
-              description: "Rental start date (YYYY-MM-DD)",
-            },
-            end: {
-              type: SchemaType.STRING,
-              description: "Rental end date (YYYY-MM-DD)",
-            },
+    type: "function",
+    function: {
+      name: "inventory_semantic_search",
+      description:
+        "Search for theatrical costumes, props, and equipment using semantic understanding. Use this when the user describes what they need for a role, character, production, or theatrical context. This tool understands context like historical periods (1920s, Victorian), character names (Hamlet, Ophelia), production styles (modern-dress, period-accurate), and theatrical requirements.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: {
+            type: "string",
+            description:
+              "Search query describing the item needed. Can include character names, periods, styles, or theatrical contexts.",
           },
-          description: "Optional rental dates for all items",
+          category: {
+            type: "string",
+            description: "Filter by category (optional)",
+          },
+          limit: {
+            type: "number",
+            description: "Maximum number of results to return",
+          },
         },
+        required: ["query"],
       },
-      required: ["product_ids"],
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "check_availability",
+      description:
+        "Check if a specific product is available for rental during given dates. Returns availability status and any conflicts.",
+      parameters: {
+        type: "object",
+        properties: {
+          product_id: {
+            type: "string",
+            description: "UUID of the product to check",
+          },
+          start_date: {
+            type: "string",
+            description: "Rental start date in YYYY-MM-DD format",
+          },
+          end_date: {
+            type: "string",
+            description: "Rental end date in YYYY-MM-DD format",
+          },
+        },
+        required: ["product_id", "start_date", "end_date"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "create_cart_bundle",
+      description:
+        "Add multiple items to the user's shopping cart at once. Use this after finding suitable products to pre-fill their cart. This is the key action that demonstrates anticipating customer needs.",
+      parameters: {
+        type: "object",
+        properties: {
+          product_ids: {
+            type: "array",
+            items: { type: "string" },
+            description: "Array of product UUIDs to add to cart",
+          },
+          rental_dates: {
+            type: "object",
+            properties: {
+              start: {
+                type: "string",
+                description: "Rental start date (YYYY-MM-DD)",
+              },
+              end: {
+                type: "string",
+                description: "Rental end date (YYYY-MM-DD)",
+              },
+            },
+            description: "Optional rental dates for all items",
+          },
+        },
+        required: ["product_ids"],
+      },
     },
   },
 ];
@@ -121,58 +131,13 @@ export async function POST(req: Request) {
       return Response.json({ error: "Invalid chat payload" }, { status: 400 });
     }
 
-    if (!genAI) {
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
-        return Response.json(
-          { error: "Missing NEXT_PUBLIC_SUPABASE_URL in .env.local" },
-          { status: 500 },
-        );
-      }
-
-      if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-        return Response.json(
-          { error: "Missing SUPABASE_SERVICE_ROLE_KEY in .env.local" },
-          { status: 500 },
-        );
-      }
-
-      if (!process.env.OPENAI_API_KEY) {
-        return Response.json(
-          {
-            error:
-              "Missing OPENAI_API_KEY in .env.local. It is required for semantic search.",
-          },
-          { status: 500 },
-        );
-      }
-
-      const lastMessage = messages[messages.length - 1]?.content || "";
-      const searchResult = await inventorySemanticSearch(
-        lastMessage,
-        undefined,
-        0.6,
-        6,
+    if (!process.env.OPENAI_API_KEY) {
+      return Response.json(
+        {
+          error: "Missing OPENAI_API_KEY in .env.local.",
+        },
+        { status: 500 },
       );
-
-      if (!searchResult.success || !searchResult.products.length) {
-        return Response.json({
-          message:
-            "I couldn't find matching items yet. Try adding a time period, character name, or prop type.",
-          fallback: true,
-        });
-      }
-
-      const productLines = searchResult.products
-        .map(
-          (product: any, index: number) =>
-            `${index + 1}. ${product.name} (${product.category}) - $${product.rental_price_per_day}/day`,
-        )
-        .join("\n");
-
-      return Response.json({
-        message: `I found these options based on your request:\n${productLines}\n\nWant me to add any of these to your cart?`,
-        fallback: true,
-      });
     }
 
     const supabase = await createClient();
@@ -183,89 +148,94 @@ export async function POST(req: Request) {
     // Use demo user if not authenticated
     const userId = user?.id || "51bf926f-1055-4019-a2d9-fcee854806f7";
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      tools: [{ functionDeclarations: tools as any }],
-      systemInstruction: systemPrompt,
+    // Initial request to determine if tools are needed
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: systemPrompt },
+        ...messages,
+      ],
+      tools: tools,
+      tool_choice: "auto",
     });
 
-    // Convert messages to Gemini format
-    const history = messages.slice(0, -1).map((msg: any) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
-    }));
+    const responseMessage = response.choices[0].message;
 
-    const chat = model.startChat({ history });
-    const lastMessage = messages[messages.length - 1].content;
+    // Handle tool calls
+    if (responseMessage.tool_calls) {
+      const toolCalls = responseMessage.tool_calls;
+      
+      // Append assistant's tool call message to history to maintain context
+      const newMessages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
+        { role: "system", content: systemPrompt },
+        ...messages,
+        responseMessage,
+      ];
 
-    let result = await chat.sendMessage(lastMessage);
-    let response = result.response;
+      for (const toolCall of toolCalls) {
+        if (toolCall.type !== 'function') continue;
 
-    // Handle function calls iteratively
-    while (true) {
-      const functionCalls = response.functionCalls();
-      if (!functionCalls || functionCalls.length === 0) {
-        break;
-      }
-
-      const functionResponses = [];
-
-      for (const functionCall of functionCalls) {
-        let functionResult: any;
+        const functionName = toolCall.function.name;
+        const functionArgs = JSON.parse(toolCall.function.arguments);
+        let functionResult: unknown;
 
         try {
-          if (functionCall.name === "inventory_semantic_search") {
-            const args = functionCall.args as any;
+          if (functionName === "inventory_semantic_search") {
             functionResult = await inventorySemanticSearch(
-              args.query,
-              args.category,
+              functionArgs.query,
+              functionArgs.category,
               0.7,
-              args.limit || 5,
+              functionArgs.limit || 5,
             );
-          } else if (functionCall.name === "check_availability") {
-            const args = functionCall.args as any;
+          } else if (functionName === "check_availability") {
             functionResult = await checkProductAvailability(
-              args.product_id,
-              args.start_date,
-              args.end_date,
+              functionArgs.product_id,
+              functionArgs.start_date,
+              functionArgs.end_date,
             );
-          } else if (functionCall.name === "create_cart_bundle") {
-            const args = functionCall.args as any;
+          } else if (functionName === "create_cart_bundle") {
             functionResult = await createCartBundle(
               userId,
-              args.product_ids,
-              args.rental_dates,
+              functionArgs.product_ids,
+              functionArgs.rental_dates,
             );
           } else {
             functionResult = { error: "Unknown function" };
           }
-        } catch (error: any) {
-          console.error(`Error executing function ${functionCall.name}:`, error);
-          functionResult = { error: error.message || "Function execution failed" };
+        } catch (error: unknown) {
+          const errorMessage = error instanceof Error ? error.message : "Function execution failed";
+          console.error(`Error executing function ${functionName}:`, error);
+          functionResult = { error: errorMessage };
         }
 
-        functionResponses.push({
-          functionResponse: {
-            name: functionCall.name,
-            response: functionResult,
-          },
+        // Add tool response to messages
+        newMessages.push({
+          role: "tool",
+          tool_call_id: toolCall.id,
+          content: JSON.stringify(functionResult),
         });
       }
 
-      // Send all function responses back to the model
-      result = await chat.sendMessage(functionResponses);
-      response = result.response;
+      // Generate final response using tool outputs
+      const finalResponse = await openai.chat.completions.create({
+        model: "gpt-4o",
+        messages: newMessages,
+      });
+
+      return Response.json({
+        message: finalResponse.choices[0].message.content,
+      });
     }
 
-    const text = response.text();
-
     return Response.json({
-      message: text || "No response generated",
+      message: responseMessage.content || "No response generated",
     });
-  } catch (error) {
+
+  } catch (error: unknown) {
     console.error("Error in chat API:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return Response.json(
-      { error: "Failed to process chat request" },
+      { error: `Failed to process chat request: ${errorMessage}` },
       { status: 500 },
     );
   }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
+import { HoverCard } from '@/components/ui/motion';
 
 interface ProductCardProps {
   product: {
@@ -18,7 +19,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/marketplace/${product.id}`} className="group block h-full">
-      <div className="relative h-full flex flex-col bg-card rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 border border-border/50 hover:border-border">
+      <HoverCard className="relative h-full flex flex-col bg-card rounded-3xl overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-2xl hover:shadow-purple-500/10 border border-border/50 hover:border-border">
         {/* Image Container */}
         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
           <Image
@@ -70,7 +71,7 @@ export function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
         </div>
-      </div>
+      </HoverCard>
     </Link>
   );
 }

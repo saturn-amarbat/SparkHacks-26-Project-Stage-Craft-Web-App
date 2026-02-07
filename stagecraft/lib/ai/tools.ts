@@ -5,7 +5,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "dummy-key-for-build",
 });
 
-// Use service role key for tool functions to bypass RLS
+// Service role key is required to bypass RLS for administrative tool functions
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co",
   process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-key",
@@ -30,14 +30,14 @@ export async function inventorySemanticSearch(
       };
     }
 
-    // Generate query embedding
+    // Convert search query to vector embedding
     const embeddingResponse = await openai.embeddings.create({
       model: "text-embedding-3-small",
       input: query,
     });
     const queryEmbedding = embeddingResponse.data[0].embedding;
 
-    // Call Supabase match_products function
+    // Execute similarity search via RPC
     const { data, error } = await supabase.rpc("match_products", {
       query_embedding: queryEmbedding,
       match_threshold: matchThreshold,
@@ -54,9 +54,9 @@ export async function inventorySemanticSearch(
       };
     }
 
-    // Filter by category if provided
+    // Apply client-side category filtering
     const filtered = category
-      ? data?.filter((p: any) => p.category === category)
+      ? data?.filter((p: { category: string }) => p.category === category)
       : data;
 
     // Limit results after filtering

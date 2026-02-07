@@ -1,7 +1,6 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import type { Product } from '@/lib/types';
 
 export async function getProducts(filters?: {
   category?: 'Costume' | 'Prop' | 'Equipment';

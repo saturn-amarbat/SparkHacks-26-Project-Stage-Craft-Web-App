@@ -33,7 +33,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['1920s', 'tuxedo', 'menswear', 'formal', 'black', 'jazz age', 'gatsby', 'hamlet'],
     rental_price_per_day: 45.00,
     purchase_price: 380.00,
-    image_url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?1920s,tuxedo',
   },
   {
     name: 'Replica Human Skull (Yorick)',
@@ -42,7 +42,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['skull', 'yorick', 'hamlet', 'shakespeare', 'graveyard', 'prop', 'death'],
     rental_price_per_day: 15.00,
     purchase_price: 95.00,
-    image_url: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?human,skull,yorick',
   },
   {
     name: 'Art Deco Cufflinks Set',
@@ -51,7 +51,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['art deco', '1920s', 'accessories', 'cufflinks', 'jewelry', 'menswear'],
     rental_price_per_day: 8.00,
     purchase_price: 45.00,
-    image_url: 'https://images.unsplash.com/photo-1513107779984-de4d8e99c4d5?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?art,deco,cufflinks',
   },
   {
     name: 'Vintage Pocket Watch',
@@ -60,7 +60,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['pocket watch', '1920s', 'accessory', 'prop', 'timepiece', 'vintage'],
     rental_price_per_day: 12.00,
     purchase_price: 120.00,
-    image_url: 'https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,pocket,watch',
   },
   {
     name: 'Art Deco Cigarette Case',
@@ -69,7 +69,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['cigarette case', 'art deco', '1920s', 'prop', 'silver', 'accessory'],
     rental_price_per_day: 10.00,
     purchase_price: 65.00,
-    image_url: 'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?art,deco,cigarette,case',
   },
   {
     name: 'Vintage Dagger with Sheath',
@@ -78,7 +78,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['dagger', 'weapon', 'hamlet', 'shakespeare', 'combat', 'stage weapon'],
     rental_price_per_day: 18.00,
     purchase_price: 140.00,
-    image_url: 'https://images.unsplash.com/photo-1566207462892-cccf8f0b97e2?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,dagger',
   },
 
   // COSTUMES - Period and Character-Specific
@@ -89,7 +89,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['victorian', 'dress', 'gothic', 'mourning', 'period', 'womens'],
     rental_price_per_day: 55.00,
     purchase_price: 450.00,
-    image_url: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?victorian,gothic,dress',
   },
   {
     name: 'Flapper Dress (Gold Sequins)',
@@ -98,7 +98,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['1920s', 'flapper', 'dress', 'sequins', 'jazz age', 'womens', 'gatsby'],
     rental_price_per_day: 48.00,
     purchase_price: 320.00,
-    image_url: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?flapper,dress,sequins',
   },
   {
     name: 'Medieval Knight Armor Set',
@@ -107,7 +107,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['medieval', 'armor', 'knight', 'period', 'shakespeare', 'fantasy'],
     rental_price_per_day: 85.00,
     purchase_price: 850.00,
-    image_url: 'https://images.unsplash.com/photo-1533660859-b649ad46bcaa?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?medieval,knight,armor',
   },
   {
     name: 'Renaissance Noble Doublet',
@@ -116,7 +116,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['renaissance', 'doublet', 'shakespeare', 'elizabethan', 'noble', 'menswear'],
     rental_price_per_day: 42.00,
     purchase_price: 285.00,
-    image_url: 'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?renaissance,doublet',
   },
   {
     name: '1950s Housewife Dress',
@@ -125,7 +125,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['1950s', 'vintage', 'housewife', 'dress', 'retro', 'womens'],
     rental_price_per_day: 35.00,
     purchase_price: 175.00,
-    image_url: 'https://images.unsplash.com/photo-1596783342566-2f8a4ac4c46c?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?1950s,housewife,dress',
   },
   {
     name: 'Edwardian Walking Suit',
@@ -134,7 +134,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['edwardian', 'victorian', 'walking suit', 'period', 'womens', '1900s'],
     rental_price_per_day: 52.00,
     purchase_price: 395.00,
-    image_url: 'https://images.unsplash.com/photo-1617019114583-affb34d1b3cd?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?edwardian,suit',
   },
   {
     name: 'Elizabethan Court Gown',
@@ -143,7 +143,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['elizabethan', 'gown', 'shakespeare', 'royalty', 'renaissance', 'womens'],
     rental_price_per_day: 95.00,
     purchase_price: 1200.00,
-    image_url: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?elizabethan,gown',
   },
   {
     name: 'Pirate Captain Coat',
@@ -152,7 +152,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['pirate', 'captain', 'coat', 'adventure', 'theatrical', 'menswear'],
     rental_price_per_day: 48.00,
     purchase_price: 320.00,
-    image_url: 'https://images.unsplash.com/photo-1544441892-794166f1e3be?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?pirate,captain,coat',
   },
   {
     name: 'Ancient Roman Toga',
@@ -161,7 +161,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['roman', 'toga', 'ancient', 'classical', 'shakespeare', 'julius caesar'],
     rental_price_per_day: 32.00,
     purchase_price: 195.00,
-    image_url: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?roman,toga',
   },
   {
     name: 'Regency Era Ball Gown',
@@ -170,7 +170,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['regency', 'ball gown', 'jane austen', 'empire waist', 'period', 'womens'],
     rental_price_per_day: 68.00,
     purchase_price: 580.00,
-    image_url: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?regency,ball,gown',
   },
   {
     name: '1970s Disco Outfit',
@@ -179,7 +179,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['1970s', 'disco', 'bell bottoms', 'retro', 'menswear', 'vintage'],
     rental_price_per_day: 38.00,
     purchase_price: 245.00,
-    image_url: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?1970s,disco,outfit',
   },
   {
     name: 'Steampunk Aviator Ensemble',
@@ -188,7 +188,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['steampunk', 'victorian', 'aviator', 'fantasy', 'goggles', 'gears'],
     rental_price_per_day: 58.00,
     purchase_price: 425.00,
-    image_url: 'https://images.unsplash.com/photo-1558769132-cb1aea0c4c6f?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?steampunk,aviator',
   },
   {
     name: 'Medieval Peasant Tunic',
@@ -197,7 +197,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['medieval', 'peasant', 'tunic', 'ensemble', 'period', 'simple'],
     rental_price_per_day: 25.00,
     purchase_price: 145.00,
-    image_url: 'https://images.unsplash.com/photo-1605806616949-1e87b487fc2f?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?medieval,peasant,tunic',
   },
   {
     name: 'Victorian Gentleman Suit',
@@ -206,7 +206,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['victorian', 'suit', 'gentleman', 'formal', 'period', 'menswear'],
     rental_price_per_day: 52.00,
     purchase_price: 395.00,
-    image_url: 'https://images.unsplash.com/photo-1594938291221-94f18cbb5660?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?victorian,gentleman,suit',
   },
 
   // PROPS - Essential theatrical items
@@ -217,7 +217,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['crown', 'royalty', 'shakespeare', 'king', 'queen', 'golden'],
     rental_price_per_day: 22.00,
     purchase_price: 185.00,
-    image_url: 'https://images.unsplash.com/photo-1585928211883-db1107e5ce0c?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?golden,crown',
   },
   {
     name: 'Ornate Wooden Throne',
@@ -225,7 +225,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     category: 'Prop',
     tags: ['throne', 'chair', 'royalty', 'furniture', 'shakespeare', 'royal'],
     rental_price_per_day: 125.00,
-    image_url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?ornate,wooden,throne',
   },
   {
     name: 'Theatrical Sword (Rapier)',
@@ -234,7 +234,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['sword', 'rapier', 'weapon', 'stage combat', 'shakespeare', 'duel'],
     rental_price_per_day: 20.00,
     purchase_price: 165.00,
-    image_url: 'https://images.unsplash.com/photo-1592207159486-77459fe9cd05?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?theatrical,sword,rapier',
   },
   {
     name: 'Crystal Ball with Stand',
@@ -243,7 +243,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['crystal ball', 'mystical', 'fortune teller', 'magic', 'glass'],
     rental_price_per_day: 18.00,
     purchase_price: 125.00,
-    image_url: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?crystal,ball',
   },
   {
     name: 'Vintage Typewriter (1940s)',
@@ -252,7 +252,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['typewriter', '1940s', 'vintage', 'office', 'prop', 'working'],
     rental_price_per_day: 35.00,
     purchase_price: 450.00,
-    image_url: 'https://images.unsplash.com/photo-1565106430482-8f6e74349ca1?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,typewriter',
   },
   {
     name: 'Ornate Silver Candelabra',
@@ -261,7 +261,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['candelabra', 'candles', 'gothic', 'dining', 'silver', 'period'],
     rental_price_per_day: 28.00,
     purchase_price: 210.00,
-    image_url: 'https://images.unsplash.com/photo-1607599312276-5abe8c65bb25?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?ornate,candelabra',
   },
   {
     name: 'Vintage Rotary Telephone',
@@ -270,7 +270,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['telephone', '1950s', 'rotary', 'vintage', 'prop', 'office'],
     rental_price_per_day: 15.00,
     purchase_price: 95.00,
-    image_url: 'https://images.unsplash.com/photo-1595657959743-2bc54abec0f5?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,rotary,telephone',
   },
   {
     name: 'Leather-Bound Books Set',
@@ -279,7 +279,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['books', 'library', 'study', 'vintage', 'leather', 'set'],
     rental_price_per_day: 25.00,
     purchase_price: 180.00,
-    image_url: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?leather,bound,books',
   },
   {
     name: 'Vintage Poison Bottle',
@@ -288,7 +288,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['poison', 'bottle', 'shakespeare', 'romeo juliet', 'glass', 'prop'],
     rental_price_per_day: 12.00,
     purchase_price: 45.00,
-    image_url: 'https://images.unsplash.com/photo-1594887805469-fdf3fb0e90e8?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,poison,bottle',
   },
   {
     name: 'Medieval Scroll Set',
@@ -297,7 +297,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['scroll', 'parchment', 'medieval', 'letter', 'period', 'royal'],
     rental_price_per_day: 18.00,
     purchase_price: 85.00,
-    image_url: 'https://images.unsplash.com/photo-1595475884562-073c30d45670?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?medieval,scroll',
   },
   {
     name: 'Victorian Tea Set',
@@ -306,7 +306,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['tea set', 'victorian', 'porcelain', 'dining', 'period', 'china'],
     rental_price_per_day: 32.00,
     purchase_price: 245.00,
-    image_url: 'https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?victorian,tea,set',
   },
   {
     name: 'Stage Combat Broadsword',
@@ -315,7 +315,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['sword', 'broadsword', 'medieval', 'weapon', 'stage combat', 'shakespeare'],
     rental_price_per_day: 22.00,
     purchase_price: 175.00,
-    image_url: 'https://images.unsplash.com/photo-1592207159486-77459fe9cd05?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?broadsword',
   },
   {
     name: 'Vintage Suitcase Set',
@@ -324,7 +324,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['suitcase', 'luggage', 'vintage', 'travel', 'leather', 'period'],
     rental_price_per_day: 28.00,
     purchase_price: 195.00,
-    image_url: 'https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?vintage,suitcase',
   },
   {
     name: 'Ornate Hand Mirror',
@@ -333,7 +333,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['mirror', 'victorian', 'vanity', 'silver', 'ornate', 'prop'],
     rental_price_per_day: 15.00,
     purchase_price: 85.00,
-    image_url: 'https://images.unsplash.com/photo-1584015919761-36d8b9512f2e?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?ornate,hand,mirror',
   },
   {
     name: 'Quill and Ink Set',
@@ -342,7 +342,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['quill', 'ink', 'writing', 'period', 'shakespeare', 'medieval'],
     rental_price_per_day: 12.00,
     purchase_price: 55.00,
-    image_url: 'https://images.unsplash.com/photo-1583970014029-e7d7c25fe3ec?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?quill,ink',
   },
 
   // EQUIPMENT - Technical theatrical gear
@@ -353,7 +353,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['lighting', 'led', 'stage light', 'par can', 'dmx', 'technical'],
     rental_price_per_day: 45.00,
     purchase_price: 425.00,
-    image_url: 'https://images.unsplash.com/photo-1598462163419-3f21c26e7e5c?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?led,stage,light',
   },
   {
     name: 'Fog Machine (Professional)',
@@ -362,7 +362,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['fog machine', 'atmosphere', 'effects', 'smoke', 'technical'],
     rental_price_per_day: 65.00,
     purchase_price: 385.00,
-    image_url: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?fog,machine',
   },
   {
     name: 'Wireless Lavalier Microphone',
@@ -371,7 +371,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['microphone', 'audio', 'wireless', 'lavalier', 'sound', 'technical'],
     rental_price_per_day: 55.00,
     purchase_price: 495.00,
-    image_url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?lavalier,microphone',
   },
   {
     name: 'Spotlight (Follow Spot)',
@@ -380,7 +380,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['spotlight', 'follow spot', 'lighting', 'stage', 'technical'],
     rental_price_per_day: 85.00,
     purchase_price: 1250.00,
-    image_url: 'https://images.unsplash.com/photo-1559070169-a3077159ee16?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?stage,spotlight',
   },
   {
     name: 'Stage Monitor Speakers',
@@ -389,7 +389,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['speakers', 'monitors', 'audio', 'sound', 'stage', 'technical'],
     rental_price_per_day: 75.00,
     purchase_price: 895.00,
-    image_url: 'https://images.unsplash.com/photo-1545127398-14699f92334b?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?stage,monitor,speakers',
   },
   {
     name: 'Portable Sound Mixer',
@@ -398,7 +398,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['mixer', 'audio', 'sound', 'digital', 'technical', 'console'],
     rental_price_per_day: 95.00,
     purchase_price: 1450.00,
-    image_url: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?sound,mixer',
   },
   {
     name: 'Black Velour Stage Drapes',
@@ -407,7 +407,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['drapes', 'curtains', 'backdrop', 'stage', 'black', 'velour'],
     rental_price_per_day: 125.00,
     purchase_price: 950.00,
-    image_url: 'https://images.unsplash.com/photo-1516371535312-15e666c6ad93?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?stage,drapes,curtains',
   },
   {
     name: 'Moving Head Light',
@@ -416,7 +416,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['moving head', 'intelligent lighting', 'dmx', 'stage light', 'technical'],
     rental_price_per_day: 115.00,
     purchase_price: 1650.00,
-    image_url: 'https://images.unsplash.com/photo-1518709414768-a88981a4515d?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?moving,head,light',
   },
   {
     name: 'Backdrop Stand System',
@@ -425,7 +425,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['backdrop', 'stand', 'support', 'stage', 'technical', 'portable'],
     rental_price_per_day: 35.00,
     purchase_price: 245.00,
-    image_url: 'https://images.unsplash.com/photo-1511578194003-00c80e42dc9b?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?backdrop,stand',
   },
   {
     name: 'Theater Fresnel Light Kit',
@@ -434,24 +434,65 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['fresnel', 'lighting', 'stage light', 'kit', 'technical', 'theater'],
     rental_price_per_day: 145.00,
     purchase_price: 1850.00,
-    image_url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800',
+    image_url: 'https://source.unsplash.com/random/800x600/?fresnel,light',
   },
 ];
+
+// Function to get or create a demo user
+async function getOrCreateDemoUser(): Promise<string> {
+  const DEMO_EMAIL = 'seed_user@example.com';
+  const DEMO_PASSWORD = 'password'; // This is a script, so hardcoding is fine for demo purposes
+
+  // Check if user already exists
+  const { data: existingUsers, error: listError } = await supabase.auth.admin.listUsers();
+  if (listError) {
+    console.error('Error listing users:', listError);
+    throw listError;
+  }
+
+  const demoUser = existingUsers.users.find(user => user.email === DEMO_EMAIL);
+
+  if (demoUser) {
+    console.log(`Using existing demo user: ${DEMO_EMAIL} (ID: ${demoUser.id})`);
+    return demoUser.id;
+  } else {
+    // Create new user
+    console.log(`Creating new demo user: ${DEMO_EMAIL}`);
+    const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
+      email: DEMO_EMAIL,
+      password: DEMO_PASSWORD,
+      email_confirm: true,
+      user_metadata: {
+        full_name: 'Seed User',
+        avatar_url: 'https://source.unsplash.com/random/150x150/?avatar'
+      }
+    });
+
+    if (createError) {
+      console.error('Error creating demo user:', createError);
+      throw createError;
+    }
+
+    console.log(`Successfully created demo user with ID: ${newUser.user.id}`);
+    return newUser.user.id;
+  }
+}
+
 
 async function seedProducts() {
   console.log('Starting product seeding...');
 
   try {
-    // Get or create a demo owner profile
-    // First, we need to create a user in Supabase Auth or use an existing one
-    // For seeding purposes, you should manually create a user in Supabase and use their ID here
-    console.log('Note: You need to manually set the owner_id to a valid user UUID from your Supabase Auth users');
-    console.log('After creating a user in Supabase, replace the owner_id below with their UUID');
-
-    const DEMO_OWNER_ID = '942ec7b8-e91a-4f2c-9b9c-db1e85417e87'; // Replace with actual user UUID
-
-    if (DEMO_OWNER_ID === '51bf926f-1055-4019-a2d9-fcee854806f7') {
-      throw new Error('Please set DEMO_OWNER_ID to a valid user UUID before running this script');
+    const DEMO_OWNER_ID = await getOrCreateDemoUser();
+    
+    // Clear existing products to avoid duplicates and FK issues if running multiple times
+    console.log('Clearing existing products...');
+    const { error: deleteError } = await supabase.from('products').delete().neq('owner_id', '00000000-0000-0000-0000-000000000000'); // Delete all except dummy ID
+    if (deleteError) {
+      console.error('Error clearing products:', deleteError.message);
+      // Decide if you want to throw or continue. For seeding, often good to continue if possible.
+    } else {
+      console.log('Existing products cleared.');
     }
 
     let successCount = 0;
@@ -462,16 +503,16 @@ async function seedProducts() {
         console.log(`Processing: ${product.name}...`);
 
         // Generate embedding for the product
-        // const embeddingText = createProductEmbeddingText(product);
-        // const embedding = await generateEmbedding(embeddingText);
+        const embeddingText = createProductEmbeddingText(product);
+        const embedding = await generateEmbedding(embeddingText);
 
         // Insert product into database
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from('products')
           .insert({
             ...product,
             owner_id: DEMO_OWNER_ID,
-            // embedding: embedding,
+            embedding: embedding,
             available: true,
           })
           .select()
