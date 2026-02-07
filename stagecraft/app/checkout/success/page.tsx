@@ -40,7 +40,7 @@ export default function CheckoutSuccessPage() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          Break a leg! 🎭
+          Thank you! Wish to see you again.
         </p>
       </div>
     </div>
