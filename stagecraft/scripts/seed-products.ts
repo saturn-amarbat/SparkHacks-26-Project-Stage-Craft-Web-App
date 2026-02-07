@@ -407,7 +407,7 @@ const products: Omit<ProductInput, 'owner_id'>[] = [
     tags: ['drapes', 'curtains', 'backdrop', 'stage', 'black', 'velour'],
     rental_price_per_day: 125.00,
     purchase_price: 950.00,
-    image_url: 'https://source.unsplash.com/random/800x600/?stage,drapes,curtains',
+    image_url: 'https://unsplash.com/photos/a-black-curtain-with-a-pattern-on-it-pNzunRuL3Cs',
   },
   {
     name: 'Moving Head Light',

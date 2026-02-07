@@ -5,12 +5,14 @@ import { Send, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChatMessage } from "./chat-message";
+import { ChatProductCard, ChatProduct } from "./chat-product-card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  products?: ChatProduct[];
 }
 
 const SUGGESTED_PROMPTS = [
@@ -49,14 +51,22 @@ export default function ChatInterface() {
     setIsLoading(true);
 
     try {
+      // Find the most recent assistant message with products to pass IDs
+      const allMessages = [...messages, userMessage];
+      const lastProductMessage = [...messages]
+        .reverse()
+        .find((msg) => msg.role === "assistant" && msg.products?.length);
+      const recentProductIds = lastProductMessage?.products?.map((p) => p.id);
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map((msg) => ({
+          messages: allMessages.map((msg) => ({
             role: msg.role,
             content: msg.content,
           })),
+          ...(recentProductIds?.length && { recentProductIds }),
         }),
       });
 
@@ -68,6 +78,7 @@ export default function ChatInterface() {
       const assistantMessage: Message = {
         role: "assistant",
         content: data.message,
+        products: data.products,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -114,11 +125,21 @@ export default function ChatInterface() {
       {/* Messages Container */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.map((message, index) => (
-          <ChatMessage
-            key={index}
-            role={message.role}
-            content={message.content}
-          />
+          <div key={index}>
+            <ChatMessage
+              role={message.role}
+              content={message.content}
+            />
+            {message.products && message.products.length > 0 && (
+              <div className="flex justify-start mb-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[80%]">
+                  {message.products.map((product) => (
+                    <ChatProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         ))}
 
         {isLoading && (

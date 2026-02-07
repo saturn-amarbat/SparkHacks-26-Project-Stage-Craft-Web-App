@@ -105,14 +105,18 @@ WHEN A USER DESCRIBES THEIR NEEDS:
 1. Understand the context (character, era, production style, setting)
 2. Use inventory_semantic_search to find relevant items
 3. If dates are mentioned, use check_availability to verify availability
-4. Add suitable items to their cart using create_cart_bundle
-5. Explain your recommendations
+4. Present the found items to the user and explain your recommendations
+5. Only use create_cart_bundle when the user explicitly asks to add items to their cart
 
 CRITICAL RULES:
 - Only recommend products returned by inventory_semantic_search
 - Never invent products, prices, or availability information
 - If no items are found, suggest alternative searches
 - Be conversational and helpful
+- Do NOT automatically add items to cart. Show recommendations first and let the user decide.
+- When presenting items, describe each one briefly so the user can decide.
+- When the user asks to add items to cart, use create_cart_bundle with the product IDs from your most recent search results.
+- When the user asks for NEW items (e.g., "find me a fog machine"), ALWAYS run a new inventory_semantic_search first, then present results. Do not reuse old search results for new queries.
 
 EXAMPLE:
 User: "I'm playing Hamlet in a 1920s production"
@@ -120,12 +124,11 @@ You should:
 1. Search for: "1920s formal menswear black tuxedo"
 2. Search for: "skull prop Yorick"
 3. Search for: "art deco accessories 1920s men"
-4. Add found items to cart
-5. Explain: "For a 1920s Hamlet, I've selected a period tuxedo, the iconic Yorick skull, and Art Deco accessories."`;
+4. Explain: "For a 1920s Hamlet, I found these items for you: [describe each]. Would you like to add any of these to your cart?"`;
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, recentProductIds } = await req.json();
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return Response.json({ error: "Invalid chat payload" }, { status: 400 });
@@ -145,16 +148,47 @@ export async function POST(req: Request) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Use demo user if not authenticated
-    const userId = user?.id || "51bf926f-1055-4019-a2d9-fcee854806f7";
+    if (!user?.id) {
+      return Response.json(
+        {
+          error: "User not authenticated. Please sign in to add items to cart.",
+        },
+        { status: 401 },
+      );
+    }
+
+    const cartUser = {
+      id: user.id,
+      email: user.email || null,
+      full_name: (user.user_metadata?.full_name as string | undefined) || null,
+      avatar_url:
+        (user.user_metadata?.avatar_url as string | undefined) || null,
+    };
+
+    const isUuid = (value: string) =>
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        value,
+      );
+
+    const recentSearchProducts: Array<Record<string, unknown>> = [];
+
+    // Pre-seed with product IDs from frontend (from previous search results)
+    if (Array.isArray(recentProductIds)) {
+      for (const id of recentProductIds) {
+        if (typeof id === "string" && isUuid(id)) {
+          recentSearchProducts.push({ id });
+        }
+      }
+    }
+
+    // All add-to-cart and search requests are handled by the AI via tools.
+    // recentSearchProducts is pre-seeded from recentProductIds so the AI's
+    // create_cart_bundle calls can resolve previously shown products.
 
     // Initial request to determine if tools are needed
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...messages,
-      ],
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
       tools: tools,
       tool_choice: "auto",
     });
@@ -164,16 +198,17 @@ export async function POST(req: Request) {
     // Handle tool calls
     if (responseMessage.tool_calls) {
       const toolCalls = responseMessage.tool_calls;
-      
+
       // Append assistant's tool call message to history to maintain context
-      const newMessages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
-        { role: "system", content: systemPrompt },
-        ...messages,
-        responseMessage,
-      ];
+      const newMessages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
+        [
+          { role: "system", content: systemPrompt },
+          ...messages,
+          responseMessage,
+        ];
 
       for (const toolCall of toolCalls) {
-        if (toolCall.type !== 'function') continue;
+        if (toolCall.type !== "function") continue;
 
         const functionName = toolCall.function.name;
         const functionArgs = JSON.parse(toolCall.function.arguments);
@@ -187,6 +222,22 @@ export async function POST(req: Request) {
               0.7,
               functionArgs.limit || 5,
             );
+
+            if (functionResult && typeof functionResult === "object") {
+              const products = (
+                functionResult as {
+                  products?: Array<{ id?: string; name?: string }>;
+                }
+              ).products;
+
+              if (Array.isArray(products)) {
+                for (const product of products) {
+                  if (product?.id && isUuid(product.id)) {
+                    recentSearchProducts.push(product as Record<string, unknown>);
+                  }
+                }
+              }
+            }
           } else if (functionName === "check_availability") {
             functionResult = await checkProductAvailability(
               functionArgs.product_id,
@@ -194,16 +245,54 @@ export async function POST(req: Request) {
               functionArgs.end_date,
             );
           } else if (functionName === "create_cart_bundle") {
-            functionResult = await createCartBundle(
-              userId,
-              functionArgs.product_ids,
-              functionArgs.rental_dates,
+            const requestedIds = Array.isArray(functionArgs.product_ids)
+              ? functionArgs.product_ids
+              : [];
+            const validRequestedIds = requestedIds.filter(
+              (id: unknown): id is string =>
+                typeof id === "string" && isUuid(id),
             );
+            const knownIds = new Set(
+              recentSearchProducts.map((product) => product.id as string),
+            );
+            const filteredRequestedIds = validRequestedIds.filter((id: string) =>
+              knownIds.has(id),
+            );
+            const finalProductIds =
+              filteredRequestedIds.length > 0
+                ? filteredRequestedIds
+                : Array.from(knownIds);
+
+            if (finalProductIds.length === 0) {
+              functionResult = {
+                success: false,
+                error:
+                  "No recent search results available to add. Please search again.",
+                itemsAdded: 0,
+              };
+            } else {
+              functionResult = await createCartBundle(
+                cartUser,
+                finalProductIds,
+                functionArgs.rental_dates,
+              );
+
+              if (functionResult && typeof functionResult === "object") {
+                functionResult = {
+                  ...(functionResult as Record<string, unknown>),
+                  resolved_product_ids: finalProductIds,
+                  used_fallback: filteredRequestedIds.length === 0,
+                };
+              }
+            }
           } else {
             functionResult = { error: "Unknown function" };
           }
         } catch (error: unknown) {
-          const errorMessage = error instanceof Error ? error.message : "Function execution failed";
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : "Function execution failed";
           console.error(`Error executing function ${functionName}:`, error);
           functionResult = { error: errorMessage };
         }
@@ -224,16 +313,17 @@ export async function POST(req: Request) {
 
       return Response.json({
         message: finalResponse.choices[0].message.content,
+        products: recentSearchProducts.length > 0 ? recentSearchProducts : undefined,
       });
     }
 
     return Response.json({
       message: responseMessage.content || "No response generated",
     });
-
   } catch (error: unknown) {
     console.error("Error in chat API:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
     return Response.json(
       { error: `Failed to process chat request: ${errorMessage}` },
       { status: 500 },

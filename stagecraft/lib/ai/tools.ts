@@ -130,17 +130,65 @@ export async function checkProductAvailability(
  * Add multiple items to user's cart at once
  */
 export async function createCartBundle(
-  userId: string,
+  user: {
+    id: string;
+    email?: string | null;
+    full_name?: string | null;
+    avatar_url?: string | null;
+  },
   productIds: string[],
   rentalDates?: { start: string; end: string },
 ) {
   try {
-    if (!userId) {
+    if (!user?.id) {
       return {
         success: false,
         error: "User not authenticated",
         itemsAdded: 0,
       };
+    }
+
+    if (!user.email) {
+      return {
+        success: false,
+        error: "User profile is missing an email address",
+        itemsAdded: 0,
+      };
+    }
+
+    const { data: existingProfile, error: profileError } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("id", user.id)
+      .single();
+
+    if (profileError && profileError.code !== "PGRST116") {
+      console.error("Error checking profile:", profileError);
+      return {
+        success: false,
+        error: profileError.message,
+        itemsAdded: 0,
+      };
+    }
+
+    if (!existingProfile) {
+      const { error: insertProfileError } = await supabase
+        .from("profiles")
+        .insert({
+          id: user.id,
+          email: user.email,
+          full_name: user.full_name || null,
+          avatar_url: user.avatar_url || null,
+        });
+
+      if (insertProfileError) {
+        console.error("Error creating profile:", insertProfileError);
+        return {
+          success: false,
+          error: insertProfileError.message,
+          itemsAdded: 0,
+        };
+      }
     }
 
     if (!productIds || productIds.length === 0) {
@@ -155,7 +203,7 @@ export async function createCartBundle(
     const { data: existingItems } = await supabase
       .from("cart_items")
       .select("product_id, id, quantity")
-      .eq("user_id", userId);
+      .eq("user_id", user.id);
 
     const existingProductIds = new Set(
       existingItems?.map((item) => item.product_id) || [],
@@ -179,7 +227,7 @@ export async function createCartBundle(
       } else {
         // Prepare new item
         itemsToInsert.push({
-          user_id: userId,
+          user_id: user.id,
           product_id: productId,
           quantity: 1,
           ...(rentalDates && {
