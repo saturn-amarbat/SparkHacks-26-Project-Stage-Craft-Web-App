@@ -1,1 +1,0 @@
-# SparkHacks-26-Project-Stage-Craft-Web-App
