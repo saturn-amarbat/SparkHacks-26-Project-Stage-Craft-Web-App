@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(npx shadcn@latest init -d -y)",
+      "Bash(npx shadcn@latest add button card input sheet dialog badge avatar skeleton -y)",
+      "Bash(test:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)",
+      "Bash(if lsof:*)",
+      "Bash(then curl -s http://localhost:3000)",
+      "Bash(fi)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(tee:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
