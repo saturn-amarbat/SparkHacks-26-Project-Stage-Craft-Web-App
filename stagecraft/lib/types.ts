@@ -78,7 +78,6 @@ export const GigListingSchema = z.object({
 
 export type GigListing = z.infer<typeof GigListingSchema>;
 
-// AI Tool Schemas
 export const SearchInventoryInput = z.object({
   query: z.string(),
   category: ProductCategory.optional(),

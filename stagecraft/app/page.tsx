@@ -121,11 +121,6 @@ export default function Home() {
             </HoverCard>
           </StaggerItem>
         </StaggerContainer>
-
-        {/* Footer Info */}
-        <div className="mt-32 border-t border-white/10 pt-8 text-center text-sm text-muted-foreground">
-          <p>Built for SparkHacks 2026 • Powered by Google Gemini AI</p>
-        </div>
       </main>
     </div>
   );
