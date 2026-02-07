@@ -43,10 +43,4 @@ StageCraft is a marketplace for theatrical costumes, props, and equipment with a
 4. Seed the database with the provided script
 5. Run the dev server and open http://localhost:3000
 
-## Demo flow (presentation-ready)
 
-1. Open the landing page to show the visual polish and motion.
-2. Browse the marketplace to highlight the product grid and details.
-3. Use the AI assistant with a prompt like: “I’m playing Hamlet in a 1920s NYC production.”
-4. Show the cart updates and availability checks.
-5. Resize to show responsive behavior.
