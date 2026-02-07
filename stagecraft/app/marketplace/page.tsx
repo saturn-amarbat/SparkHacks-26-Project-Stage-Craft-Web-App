@@ -16,7 +16,6 @@ export default async function MarketplacePage() {
         </p>
       </div>
 
-      {/* Category Filters */}
       <div className="flex gap-2 mb-6">
         <Badge variant="outline" className="cursor-pointer hover:bg-primary hover:text-primary-foreground">
           All
