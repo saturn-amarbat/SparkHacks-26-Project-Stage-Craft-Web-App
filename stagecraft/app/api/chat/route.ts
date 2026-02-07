@@ -7,7 +7,7 @@ import {
 import { createClient } from "@/lib/supabase/server";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || "placeholder-key-for-build",
 });
 
 const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [

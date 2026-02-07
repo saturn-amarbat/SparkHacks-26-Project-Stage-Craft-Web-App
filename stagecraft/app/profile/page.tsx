@@ -14,7 +14,7 @@ export default async function ProfilePage() {
   const { data: rentals } = await getUserRentals();
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-24">
       <ProfileHeader profile={profile} />
 
       <Tabs defaultValue="rentals" className="space-y-6">

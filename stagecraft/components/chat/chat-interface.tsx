@@ -163,7 +163,7 @@ export default function ChatInterface() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
             placeholder="Describe your role..."
             disabled={isLoading}
             className="flex-1"

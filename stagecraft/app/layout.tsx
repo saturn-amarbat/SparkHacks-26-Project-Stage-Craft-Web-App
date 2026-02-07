@@ -1,29 +1,33 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { CartSheet } from "@/components/cart/cart-sheet";
 import { Toaster } from "sonner";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff2",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
+const inter = localFont({
+  src: "./fonts/InterVF.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
+  weight: "100 900",
+});
+
+const playfair = localFont({
+  src: "./fonts/PlayfairDisplayVF.woff2",
+  variable: "--font-playfair",
+  weight: "400 900",
 });
 
 export const metadata: Metadata = {

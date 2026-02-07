@@ -2,7 +2,7 @@ import ChatInterface from '@/components/chat/chat-interface';
 
 export default function ChatPage() {
   return (
-    <div className="container mx-auto px-4 h-[calc(100vh-4rem)]">
+    <div className="container mx-auto px-4 h-[calc(100vh-4rem)] pt-20">
       <div className="h-full flex flex-col">
         <div className="py-4 border-b">
           <h1 className="text-2xl font-bold">AI Assistant</h1>

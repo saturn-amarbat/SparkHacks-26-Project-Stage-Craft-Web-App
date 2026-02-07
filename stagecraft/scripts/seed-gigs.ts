@@ -159,7 +159,7 @@ async function seedGigs() {
   try {
     console.log('Note: You need to set DEMO_POSTER_ID to a valid user UUID from your Supabase Auth users');
 
-    const DEMO_POSTER_ID = '942ec7b8-e91a-4f2c-9b9c-db1e85417e87'; // Replace with actual user UUID
+    const DEMO_POSTER_ID: string = '942ec7b8-e91a-4f2c-9b9c-db1e85417e87'; // Replace with actual user UUID
 
     if (DEMO_POSTER_ID === '51bf926f-1055-4019-a2d9-fcee854806f7') {
       console.warn('WARNING: Using default UUID. Please update DEMO_POSTER_ID if this fails.');

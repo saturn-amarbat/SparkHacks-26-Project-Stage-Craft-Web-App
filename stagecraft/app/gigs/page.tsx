@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import { StaggerContainer, StaggerItem } from '@/components/ui/motion';
 
+export const dynamic = 'force-dynamic';
+
 export default async function GigsPage() {
   const { data: gigs, error } = await getGigs();
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 pt-24">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
         <div>
           <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary via-amber-600 to-amber-500 mb-3">
