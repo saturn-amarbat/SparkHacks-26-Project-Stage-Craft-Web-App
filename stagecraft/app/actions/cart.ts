@@ -73,7 +73,7 @@ export async function getCartItems() {
       data: { user },
     } = await supabase.auth.getUser();
 
-    // Use demo user if not authenticated (for hackathon/demo purposes)
+    // Use demo user if not authenticated
     const userId = user?.id || '51bf926f-1055-4019-a2d9-fcee854806f7';
 
     const { data, error } = await supabase
