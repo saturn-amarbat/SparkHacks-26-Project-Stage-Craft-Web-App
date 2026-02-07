@@ -1,8 +1,6 @@
 import { getGigs } from '@/app/actions/gigs';
 import { GigCard } from '@/components/gig/gig-card';
 import { PostGigForm } from '@/components/gig/post-gig-form';
-import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
 import { StaggerContainer, StaggerItem } from '@/components/ui/motion';
 
 export const dynamic = 'force-dynamic';

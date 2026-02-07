@@ -38,10 +38,28 @@ StageCraft is a marketplace for theatrical costumes, props, and equipment with a
 ## Local setup
 
 1. Clone the repository
-2. Install dependencies with npm
-3. Create .env.local in stagecraft/ with Supabase and AI keys
-4. Seed the database with the provided script
-5. Run the dev server and open http://localhost:3000
+2. `cd stagecraft && npm install`
+3. Create `.env.local` in `stagecraft/` with the following keys:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+   OPENAI_API_KEY=your_openai_api_key
+   ```
+4. Seed the database: `npm run seed` and `npm run seed:gigs`
+5. Run the dev server: `npm run dev` and open http://localhost:3000
+
+## Deploy to Vercel
+
+The fastest way to get a public URL for this project:
+
+1. Push this repo to GitHub (already done).
+2. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
+3. Click **Add New Project** and import this repository.
+4. Set the **Root Directory** to `stagecraft`.
+5. Add the environment variables listed above in the Vercel project settings.
+6. Click **Deploy**. Vercel will build and host the app automatically.
+7. Share the generated `.vercel.app` URL with anyone who wants to check it out.
 
 ## Demo flow (presentation-ready)
 
