@@ -1,64 +1,36 @@
-# StageCraft: AI-Powered Theatrical Marketplace
+# stagecraft: ai-powered theatrical marketplace
 
-StageCraft is a marketplace for theatrical costumes, props, and equipment with an AI assistant that helps production teams find the right items fast. The goal is simple: reduce time spent hunting for assets so teams can focus on the creative work.
+stagecraft is a marketplace for theatrical costumes, props, and equipment with an ai assistant that helps production teams find the right items fast. the goal is simple: reduce time spent hunting for assets so teams can focus on the creative work.
 
-## What it does
+## what it does
 
-- Natural language discovery. Describe a role or production concept and get relevant items immediately.
-- Semantic search that understands era, character type, and production context.
-- Rental and purchase workflows, plus user profiles and rental history.
-- A demo-friendly flow where the AI can add items to a shared cart for quick showcasing.
-- Gigs and casting are stubbed for future expansion.
+- natural language discovery. describe a role or production concept and get relevant items immediately.
+- semantic search that understands era, character type, and production context.
+- rental and purchase workflows, plus user profiles and rental history.
+- a demo-friendly flow where the ai can add items to a shared cart for quick showcasing.
+- gigs and casting are stubbed for future expansion.
 
-## AI and search stack
+## ai and search stack
 
-- OpenAI chat model for the assistant’s dialogue and tool orchestration.
-- OpenAI embeddings for semantic search over product descriptions.
-- Supabase with pgvector to store and query embeddings directly in Postgres.
+- openai chat model for the assistant’s dialogue and tool orchestration.
+- openai embeddings for semantic search over product descriptions.
+- supabase with pgvector to store and query embeddings directly in postgres.
 
-## Technology used
+## technology used
 
-- Next.js 16 (React 19)
-- TypeScript
-- Tailwind CSS 4
-- shadcn/ui (Radix UI + Tailwind)
-- Supabase (Auth + Postgres + Storage)
-- Framer Motion
-- Lenis
+- next.js 16 (react 19)
+- typescript
+- tailwind css 4
+- shadcn/ui (radix ui + tailwind)
+- supabase (auth + postgres + storage)
+- framer motion
+- lenis
 
-## What we built and refined
+## what we built and refined
 
-- A polished marketplace UI with consistent spacing, typography, and responsive behavior.
-- Smooth page transitions and scroll feel using Framer Motion and Lenis.
-- Product cards and detail views designed for fast scanning and clean presentation.
-- A stable AI chat flow with proper role handling and tool calling for search and cart actions.
-- Demo seeding with production-ready product data and updated imagery.
-- Guest-friendly cart viewing to make live demos smoother.
-
-## Local setup
-
-1. Clone the repository
-2. `cd stagecraft && npm install`
-3. Create `.env.local` in `stagecraft/` with the following keys:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-   OPENAI_API_KEY=your_openai_api_key
-   ```
-4. Seed the database: `npm run seed` and `npm run seed:gigs`
-5. Run the dev server: `npm run dev` and open http://localhost:3000
-
-## Deploy to Vercel
-
-The fastest way to get a public URL for this project:
-
-1. Push this repo to GitHub (already done).
-2. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
-3. Click **Add New Project** and import this repository.
-4. Set the **Root Directory** to `stagecraft`.
-5. Add the environment variables listed above in the Vercel project settings.
-6. Click **Deploy**. Vercel will build and host the app automatically.
-7. Share the generated `.vercel.app` URL with anyone who wants to check it out.
-
-
+- a polished marketplace ui with consistent spacing, typography, and responsive behavior.
+- smooth page transitions and scroll feel using framer motion and lenis.
+- product cards and detail views designed for fast scanning and clean presentation.
+- a stable ai chat flow with proper role handling and tool calling for search and cart actions.
+- demo seeding with production-ready product data and updated imagery.
+- guest-friendly cart viewing to make live demos smoother.
