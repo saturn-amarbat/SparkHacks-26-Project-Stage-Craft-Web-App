@@ -16,6 +16,8 @@ stagecraft is a marketplace for theatrical costumes, props, and equipment with a
 - openai embeddings for semantic search over product descriptions.
 - supabase with pgvector to store and query embeddings directly in postgres.
 
+for a detailed explanation of the ai architecture, see [HOW_AI_WORKS.md](HOW_AI_WORKS.md).
+
 ## technology used
 
 - next.js 16 (react 19)
