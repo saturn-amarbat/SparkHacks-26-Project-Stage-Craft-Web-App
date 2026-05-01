@@ -1,8 +1,27 @@
 # 🎭 StageCraft — AI-Powered Theatrical Marketplace
 
-Welcome to **StageCraft**! Whether you're a director sourcing costumes for opening night, a prop master hunting for the perfect piece, or an actor looking for your next gig — StageCraft is built for you.
+> **⚡ Built in 24 hours at SparkHacks 2026 Hackathon** — University of Illinois Chicago
 
-StageCraft is a modern marketplace for theatrical costumes, props, and equipment. It includes an **AI assistant** that lets you describe what you need in plain language and instantly surfaces the best matches. Spend less time searching and more time creating.
+[![SparkHacks 2026](https://img.shields.io/badge/SparkHacks-2026-blueviolet?style=flat-square)](https://sparkhacks.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://typescriptlang.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs)](https://nextjs.org)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-green?style=flat-square&logo=supabase)](https://supabase.com)
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT%20%2B%20Embeddings-orange?style=flat-square&logo=openai)](https://openai.com)
+
+StageCraft is a full-stack AI-powered marketplace for theatrical costumes, props, and equipment. The AI assistant lets you describe what you need in plain language — it uses semantic vector search to surface the best matches instantly, and can add items to your cart directly from the chat. Built from zero to deployed in a single 24-hour hackathon sprint.
+
+---
+
+## 🧠 Technical Highlights (For Recruiters)
+
+| Skill Demonstrated | Implementation |
+|---|---|
+| **AI Integration** | OpenAI chat completions + embeddings for semantic product search |
+| **Vector Search** | Supabase pgvector for embedding-based similarity queries |
+| **Full-Stack Architecture** | Next.js API routes, Supabase Postgres + Auth, Zustand state management |
+| **Real-time Auth** | Supabase Auth with protected routes, session persistence |
+| **Rapid Prototyping** | Entire app designed, built, and deployed in 24 hours |
+| **Type Safety** | End-to-end TypeScript across frontend, API, and DB types |
 
 ---
 
@@ -15,6 +34,21 @@ StageCraft is a modern marketplace for theatrical costumes, props, and equipment
 | 🤖 **AI Chat Assistant** | Chat with an AI that understands theatrical context and can search products or add items to your cart for you. |
 | 👤 **User Profiles** | Sign up, manage your profile, and track your rental history. |
 | 🎬 **Gigs & Casting** | Discover roles and crew opportunities *(coming soon — currently stubbed for future expansion)*. |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (React 19) |
+| Language | TypeScript |
+| Styling | Tailwind CSS 4, shadcn/ui (Radix UI) |
+| Backend & Auth | Supabase (Postgres, Auth, Storage) |
+| AI | OpenAI (chat completions + embeddings) |
+| Vector Search | Supabase pgvector |
+| Animations | Framer Motion, Lenis (smooth scroll) |
+| State Management | Zustand |
 
 ---
 
@@ -98,32 +132,15 @@ The app will be available at **[http://localhost:3000](http://localhost:3000)**.
 
 ---
 
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16 (React 19) |
-| Language | TypeScript |
-| Styling | Tailwind CSS 4, shadcn/ui (Radix UI) |
-| Backend & Auth | Supabase (Postgres, Auth, Storage) |
-| AI | OpenAI (chat completions + embeddings) |
-| Vector Search | Supabase pgvector |
-| Animations | Framer Motion, Lenis (smooth scroll) |
-| State Management | Zustand |
-
----
-
 ## 🔮 Next Steps
 
-These are the planned enhancements on the roadmap:
-
-- **💳 Payment System** — Integrate a payment provider (e.g., Stripe) to enable real transactions for rentals and purchases.
-- **🌐 Domain & Hosting** — Deploy to a production host (e.g., Vercel) and connect a custom domain so StageCraft is publicly accessible via its own link.
-- **🎬 Gigs & Casting** — Fully build out the gigs and casting board for the theater community.
-- **📦 Order Tracking** — Add order status tracking and notifications for renters and sellers.
+- **💳 Payment System** — Integrate Stripe to enable real transactions for rentals and purchases.
+- **🌐 Domain & Hosting** — Deploy to Vercel and connect a custom domain.
+- **🎬 Gigs & Casting** — Fully build out the gigs and casting board.
+- **📦 Order Tracking** — Add order status tracking and notifications.
 
 ---
 
 ## 📜 License
 
-This project was built during **SparkHacks 2026**.
+This project was built during **SparkHacks 2026** — a 24-hour hackathon at University of Illinois Chicago.
